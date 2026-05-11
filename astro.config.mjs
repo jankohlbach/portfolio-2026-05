@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 
 import robotsTxt from 'astro-robots-txt';
 import sitemap from '@astrojs/sitemap';
@@ -11,17 +11,17 @@ export default defineConfig({
   site:
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:4321'
-      : 'https://astro-creative-base.jnkl.dev',
+      : 'https://folio-new.jnkl.dev',
   integrations: [
     robotsTxt({
       sitemapBaseFileName: 'sitemap-index',
       // TODO: remove when going live
-      // policy: [
-      //   {
-      //     userAgent: '*',
-      //     disallow: '/',
-      //   },
-      // ],
+      policy: [
+        {
+          userAgent: '*',
+          disallow: '/',
+        },
+      ],
     }),
     sitemap({
       lastmod: new Date(),
@@ -39,6 +39,38 @@ export default defineConfig({
     },
     plugins: [glsl()],
   },
+  fonts: [
+    {
+      provider: fontProviders.local(),
+      name: 'Switzer',
+      cssVariable: '--ff-switzer',
+      fallbacks: ['sans-serif'],
+      options: {
+        variants: [
+          {
+            src: ['./src/fonts/Switzer/Switzer-Variable.woff2'],
+            weight: '100 900',
+            style: 'normal',
+          },
+        ],
+      },
+    },
+    {
+      provider: fontProviders.local(),
+      name: 'Signore',
+      cssVariable: '--ff-signore',
+      fallbacks: ['serif'],
+      options: {
+        variants: [
+          {
+            src: ['./src/fonts/Signore/Signore-Serif-Typeface.woff2'],
+            weight: '400',
+            style: 'normal',
+          },
+        ],
+      },
+    },
+  ],
 });
 
 // file meta order

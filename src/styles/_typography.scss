@@ -10,7 +10,9 @@ h5,
 .h5,
 h6,
 .h6 {
-  font-weight: var(--fw-black);
+  font-family: var(--ff-secondary);
+  font-weight: var(--fw-regular);
+  font-feature-settings: 'liga', 'dlig', 'salt';
   line-height: 1.2;
 }
 

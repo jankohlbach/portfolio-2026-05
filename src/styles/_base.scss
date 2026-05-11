@@ -73,8 +73,8 @@ a {
 
 // custom
 ::selection {
-  color: var(--c-light);
-  background-color: var(--c-dark);
+  color: var(--c-dark);
+  background-color: hsl(from var(--c-primary) h s calc(l - 5));;
 }
 
 html {
@@ -90,8 +90,8 @@ body {
   font-family: var(--ff-primary);
   font-weight: var(--fw-regular);
   font-size: var(--fs-base);
-  color: var(--c-dark);
-  background-color: var(--c-light);
+  color: var(--c-primary);
+  background-color: var(--c-dark);
 }
 
 .visually-hidden {

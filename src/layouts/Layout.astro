@@ -1,6 +1,8 @@
 ---
 import '../styles/index.scss';
 
+import { Font } from 'astro:assets';
+
 import Cursor from '@components/Cursor.astro';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
@@ -9,18 +11,19 @@ import Canvas from '@components/Canvas.astro';
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const title = 'astro creative base';
+const lang = 'en';
+const title = 'Jan Kohlbach | Independent Creative Developer';
 const description =
-  'astro starter for creative projects, includes scss setup, gsap, lenis scroll, curtainsjs to load media with webgl, custom cursor, inview trigger, splash screen, robots.txt, sitemap.xml';
+  'Elevated, high-quality web experiences with a touch of digital magic.';
 const shareImage = new URL('og-image.jpg', Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#111111" />
+    <meta name="theme-color" content="#152720" />
     <title>{title}</title>
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -29,30 +32,32 @@ const shareImage = new URL('og-image.jpg', Astro.site);
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="canonical" href={canonicalURL} />
     <!-- TODO: remove when going live -->
-    <!-- <meta name="robots" content="noindex, nofollow" /> -->
+    <meta name="robots" content="noindex, nofollow" />
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={shareImage} />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="en" />
+    <meta property="og:locale" content={lang} />
     <meta property="og:url" content={canonicalURL} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={shareImage} />
-    <!-- TODO: preload font -->
+    <Font cssVariable="--ff-switzer" preload />
+    <Font cssVariable="--ff-signore" preload />
     <script is:inline>
       if (!sessionStorage.getItem('splash:played')) {
         document.documentElement.classList.add('play-splash');
       }
     </script>
+    <!-- TODO: change to final domain -->
     <script
       is:inline
       defer
       src="https://tracking.jnkl.dev/script.js"
-      data-website-id="b44d7dd2-f222-4333-a09d-e66fbe703a6e"
-      data-domains="astro-creative-base.jnkl.dev"
+      data-website-id=""
+      data-domains="folio-new.jnkl.dev"
       data-do-not-track="true"></script>
   </head>
   <body>
