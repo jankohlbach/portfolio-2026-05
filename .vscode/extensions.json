@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "kohlbachjan.the-best-theme",
+    "EditorConfig.EditorConfig",
+    "dbaeumer.vscode-eslint",
+    "astro-build.astro-vscode",
+  ],
+  "unwantedRecommendations": [
+    "prettier.prettier-vscode",
+    "esbenp.prettier-vscode",
+  ]
+}
