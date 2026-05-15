@@ -21,52 +21,71 @@
     if (!sessionStorage.getItem('splash:played') && splash) {
       scrollStop();
 
+      // TODO: reduced motion
       mm.add(
         {
-          isMobile: '(max-width: 1279px)',
-          isDesktop: '(min-width: 1280px)',
+          isMobile: '(max-width: 1023px)',
+          isDesktopSmall: '(min-width: 1024px) and (max-width: 1279px)',
+          isDesktopLarge: '(min-width: 1280px)',
         },
         (context) => {
-          const { isDesktop } = context.conditions || { isDesktop: false };
+          const { isMobile, isDesktopLarge } = context.conditions || {
+            isMobile: true,
+            isDesktopLarge: false,
+          };
 
-          gsap
-            .timeline({
-              delay: 0.2,
-              defaults: { duration: 1, ease: 'power4.inOut' },
-            })
-            .fromTo(
-              splashPaths,
-              { strokeDashoffset: 1 },
-              {
-                strokeDashoffset: 0,
-                autoRound: false,
-                stagger: 0.1,
-              },
-            )
-            .fromTo(
-              splashTexts,
-              { autoAlpha: 0 },
-              {
-                autoAlpha: 1,
-                stagger: 0.1,
-              },
-              '<0.5',
-            )
-            .fromTo(
+          const tl = gsap.timeline({
+            delay: 0.2,
+            defaults: { duration: 1, ease: 'power4.inOut' },
+          });
+
+          tl.fromTo(
+            splashPaths,
+            { strokeDashoffset: 1 },
+            {
+              strokeDashoffset: 0,
+              autoRound: false,
+              stagger: 0.1,
+            },
+          ).fromTo(
+            splashTexts,
+            { autoAlpha: 0 },
+            {
+              autoAlpha: 1,
+              stagger: 0.1,
+            },
+            '<0.5',
+          );
+
+          if (!isMobile) {
+            tl.fromTo(
               splashRow,
               { gridTemplateColumns: '1fr 2fr 1fr' },
               {
-                gridTemplateColumns: isDesktop ? '1fr 4fr 1fr' : '1fr 3fr 1fr',
+                gridTemplateColumns: isDesktopLarge
+                  ? '1fr 4fr 1fr'
+                  : '1fr 3fr 1fr',
               },
               '>-0.5',
-            )
-            .fromTo(
-              splash,
-              { autoAlpha: 1 },
+            );
+          } else {
+            tl.fromTo(
+              splashRow,
+              { gridTemplateRows: '1fr 3fr 1fr' },
               {
-                autoAlpha: 0,
+                gridTemplateRows: '1fr 5fr 1fr',
               },
-            )
+              '>-0.5',
+            );
+          }
+
+          tl.fromTo(
+            splash,
+            { autoAlpha: 1 },
+            {
+              autoAlpha: 0,
+            },
+          )
             .call(
               () => {
                 window.dispatchEvent(new Event('splash:done'));
@@ -207,9 +226,15 @@
 
   .row {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 3fr 1fr;
     gap: to-rem(64);
+    justify-items: center;
     align-items: center;
+
+    @media (min-width: 1024px) {
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 2fr 1fr;
+    }
   }
 
   .text {
@@ -217,6 +242,8 @@
   }
 
   svg {
+    height: 100%;
+
     g {
       transform-origin: center;
     }
