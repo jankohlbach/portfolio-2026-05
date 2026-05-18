@@ -2,6 +2,8 @@
 
 :root {
   // spacings
+  --s-sections: #{clamp-fluid(128, 256)};
+  --s-modules: #{clamp-fluid(64, 128)};
 
   // grid
   --fluid-min: 375;
@@ -17,7 +19,7 @@
   --ff-secondary: var(--ff-signore);
 
   // font-sizes
-  --fs-base: #{clamp-fluid(18, 24)};
+  --fs-base: #{clamp-fluid(18, 22)};
   --fs-1: #{clamp-fluid(54, 72)};
   --fs-2: #{clamp-fluid(44, 60)};
   --fs-3: #{clamp-fluid(38, 50)};

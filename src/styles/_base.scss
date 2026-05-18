@@ -88,7 +88,7 @@ html {
 
 body {
   font-family: var(--ff-primary);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-light);
   font-size: var(--fs-base);
   color: var(--c-primary);
   background-color: var(--c-dark);
@@ -132,6 +132,25 @@ html.lenis body {
   transition-property: overflow;
   transition-duration: 1ms;
   transition-behavior: allow-discrete;
+}
+
+// layout
+main > .section:first-child:not(:has(.module[data-module^="moduleHero"])) {
+  margin-top: var(--s-modules);
+}
+
+.section {
+  + .section {
+    margin-top: var(--s-sections);
+  }
+
+  > .module ~ .module {
+    margin-block: var(--s-modules);
+  }
+}
+
+[id] {
+  scroll-margin-top: var(--s-sections);
 }
 
 // grid
