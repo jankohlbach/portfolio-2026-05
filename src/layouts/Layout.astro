@@ -1,21 +1,24 @@
 ---
-import '../styles/index.scss';
+import '@styles/index.scss';
 
 import { Font } from 'astro:assets';
 
-import Cursor from '@components/Cursor.astro';
-import Header from '@components/Header.astro';
-import Footer from '@components/Footer.astro';
-import Splash from '@components/Splash.astro';
-import Canvas from '@components/Canvas.astro';
+import { siteData } from '@content/globals';
+
+import Cursor from '@components/layouts/Cursor.astro';
+import Header from '@components/layouts/Header.astro';
+import Footer from '@components/layouts/Footer.astro';
+import Splash from '@components/layouts/Splash.astro';
+import Canvas from '@components/layouts/Canvas.astro';
+
+const { pageTitle } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const lang = 'en';
-const title = 'Jan Kohlbach | Independent Creative Developer';
-const description =
-  'Elevated, high-quality web experiences with a touch of digital magic.';
-const shareImage = new URL('og-image.jpg', Astro.site);
+const title = `${pageTitle ? pageTitle + ' | ' : ''}${siteData.title}`;
+const description = siteData.description;
+const shareImage = new URL(siteData.image.src, Astro.url);
 ---
 
 <!doctype html>

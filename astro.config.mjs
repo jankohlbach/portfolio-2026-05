@@ -12,6 +12,7 @@ export default defineConfig({
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:4321'
       : 'https://folio-new.jnkl.dev',
+  trailingSlash: 'never',
   integrations: [
     robotsTxt({
       sitemapBaseFileName: 'sitemap-index',
@@ -38,6 +39,10 @@ export default defineConfig({
       },
     },
     plugins: [glsl()],
+  },
+  image: {
+    responsiveStyles: true,
+    layout: 'constrained',
   },
   fonts: [
     {

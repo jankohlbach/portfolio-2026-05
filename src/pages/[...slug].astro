@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+
+import Layout from '@layouts/Layout.astro';
+import PageGeneric from '@components/layouts/PageGeneric.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pagesGeneric');
+  return pages.map((page) => ({
+    params: { slug: page.id },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+---
+
+<Layout pageTitle={page?.data?.title}>
+  <PageGeneric page={page} />
+</Layout>

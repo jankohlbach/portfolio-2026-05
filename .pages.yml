@@ -1,0 +1,222 @@
+media:
+  - name: images
+    label: Images
+    input: src/images
+    output: '@images'
+    categories: [image]
+
+
+content:
+  - name: globals
+    label: Globals
+    type: group
+    items:
+
+      - name: siteData
+        label: Site Data
+        type: file
+        path: src/content/globalsSiteData.json
+        format: json
+        fields:
+          - name: title
+            label: Site Title
+            type: string
+            required: true
+          - name: description
+            label: Site Description
+            type: string
+            required: true
+          - name: image
+            label: Site Image (1200x630)
+            type: image
+            required: true
+
+      - name: header
+        label: Header
+        type: file
+        path: src/content/globalsHeader.json
+        format: json
+        fields:
+          - name: links
+            label: Links
+            type: object
+            list:
+              min: 1
+              max: 4
+              collapsible:
+                summary: Link
+            fields:
+              - name: title
+                label: Title
+                type: string
+                required: true
+              - name: link
+                label: Link
+                type: string
+                required: true
+
+      - name: footer
+        label: Footer
+        type: file
+        path: src/content/globalsFooter.json
+        format: json
+        fields:
+          - name: metaLinks
+            label: Meta Links
+            type: object
+            list:
+              min: 2
+              collapsible:
+                summary: Link
+            fields:
+              - name: title
+                label: Title
+                type: string
+                required: true
+              - name: link
+                label: Link
+                type: string
+                required: true
+
+      - name: page404
+        label: 404 Page
+        type: file
+        path: src/content/globalsPage404.json
+        format: json
+        fields:
+          - name: title
+            label: Title
+            type: string
+            required: true
+
+  - name: pages
+    label: Pages
+    type: group
+    items:
+
+      - name: home
+        label: Home Page
+        type: file
+        path: src/content/pageHome.md
+        fields:
+          - name: title
+            label: Title (Meta)
+            type: string
+            required: false
+          - name: sections
+            label: Page Sections
+            type: object
+            list:
+              min: 1
+              collapsible:
+                summary: Section
+            fields:
+              - name: modules
+                label: Modules
+                type: block
+                blockKey: type
+                list:
+                  min: 1
+                  collapsible:
+                    summary: Module
+                blocks:
+                  - name: moduleHeadline
+                    label: Headline
+                    component: moduleHeadline
+                  - name: moduleRichText
+                    label: Rich-Text
+                    component: moduleRichText
+
+      - name: generic
+        label: Generic Pages
+        type: collection
+        path: src/content/pagesGeneric
+        filename: '{primary}.md'
+        view:
+          fields: [slug, title]
+          primary: title
+        fields:
+          - name: slug
+            label: Slug (Meta)
+            type: string
+            required: true
+          - name: title
+            label: Title (Meta)
+            type: string
+            required: true
+          - name: sections
+            label: Page Sections
+            type: object
+            list:
+              min: 1
+              collapsible:
+                summary: Section
+            fields:
+              - name: modules
+                label: Modules
+                type: block
+                blockKey: type
+                list:
+                  min: 1
+                  collapsible:
+                    summary: Module
+                blocks:
+                  - name: moduleHeadline
+                    label: Headline
+                    component: moduleHeadline
+                  - name: moduleRichText
+                    label: Rich-Text
+                    component: moduleRichText
+
+
+components:
+  moduleHeadline:
+    type: object
+    fields:
+      - name: anchor
+        label: Anchor ID
+        component: utilAnchorID
+      - name: headline
+        label: Headline
+        type: text
+        required: true
+
+  moduleRichText:
+    type: object
+    fields:
+      - name: anchor
+        label: Anchor ID
+        component: utilAnchorID
+      - name: content
+        label: Content
+        type: rich-text
+        required: true
+        options:
+          switcher: false
+          media: false
+
+  utilImage:
+    type: object
+    fields:
+      - name: image
+        label: Image
+        type: image
+        required: true
+      - name: alt
+        label: Alt-Text
+        type: string
+        required: true
+
+  utilAnchorID:
+    type: object
+    fields:
+      - name: anchorID
+        label: Anchor ID
+        type: string
+        description: lowercase hyphenated (e.g. ueber-uns)
+
+
+settings:
+  hide: false
+  commit:
+    identity: user

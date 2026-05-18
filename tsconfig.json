@@ -9,12 +9,24 @@
   ],
   "compilerOptions": {
     "paths": {
-      "@components/*": [
-        "./src/components/*"
+      "@styles/*": [
+        "./src/styles/*"
+      ],
+      "@scripts/*": [
+        "./src/scripts/*"
       ],
       "@layouts/*": [
         "./src/layouts/*"
-      ]
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@content/*": [
+        "./src/content/*"
+      ],
+      "@images/*": [
+        "./src/images/*"
+      ],
     }
   }
 }
