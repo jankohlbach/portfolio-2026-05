@@ -55,6 +55,18 @@ content:
                   search: 'name,fields.slug,fields.title'
                   value: '{slug}'
                   label: '{title} (/{slug})'
+          - name: cta
+            label: CTA
+            type: object
+            fields:
+              - name: title
+                label: Title
+                type: string
+                required: true
+              - name: link
+                label: Link
+                type: string
+                required: true
 
       - name: footer
         label: Footer
