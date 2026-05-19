@@ -1,0 +1,56 @@
+---
+interface Props {
+  title: string;
+  link: string;
+}
+
+const { title, link } = Astro.props;
+---
+
+<a class="button text-small-caps" href={link}>
+  <span class="text">{title}</span>
+  <svg class="indicator" viewBox="0 0 300 300" fill="none" aria-hidden="true">
+    <path
+      d="M150 0C150 0 152.763 82.7627 185 115C217.237 147.237 300 150 300 150C300 150 217.237 152.763 185 185C152.763 217.237 150 300 150 300C150 300 147.237 217.237 115 185C82.7627 152.763 0 150 0 150C0 150 82.7627 147.237 115 115C147.237 82.7627 150 0 150 0Z"
+      fill="currentColor"></path>
+  </svg>
+</a>
+
+<style lang="scss">
+  .button {
+    display: inline-flex;
+    gap: 0.5em;
+    align-items: center;
+    padding: 0.6em 1.2em;
+    line-height: 1;
+    text-decoration: none;
+    color: var(--c-dark);
+    background-color: var(--c-light);
+    border-radius: to-rem(100);
+    transition: background-color 0.4s var(--ease-smooth);
+
+    .indicator {
+      flex-shrink: 0;
+      width: 1.25em;
+      height: 1.25em;
+
+      path {
+        transition: d 0.4s var(--ease-smooth);
+      }
+    }
+
+    @include has-hover {
+      &:hover {
+        background-color: var(--c-primary);
+
+        .indicator {
+          path {
+            d: path(
+              'M150 0C150 0 152.763 82.7627 185 115C217.237 147.237 300 150 300 150C300 150 217.237 152.763 185 185C152.763 217.237 150 300 150 300C150 300 137 171 173 165C209 159 0 150 0 150C0 150 209 141 173 135C137 129 150 0 150 0Z'
+            );
+          }
+        }
+      }
+    }
+  }
+</style>

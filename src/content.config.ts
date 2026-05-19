@@ -1,6 +1,6 @@
 // import type { ImageFunction } from 'astro:content';
 
-import { defineCollection } from 'astro:content';
+import { defineCollection, reference } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
@@ -21,12 +21,15 @@ const globalsHeader = defineCollection({
       links: z
         .array(
           z.object({
-            title: z.string(),
-            link: z.string(),
+            link: reference('pagesGeneric'),
           }),
         )
         .min(1)
         .max(4),
+      cta: z.object({
+        title: z.string(),
+        link: z.string(),
+      }),
     }),
 });
 

@@ -8,15 +8,30 @@ const [page] = await getCollection('pageHome');
 ---
 
 <Layout>
+  <PageGeneric page={page} />
   <div class="container">
     <h1>
-      <span
-        style="font-family:var(--ff-primary);font-size:36px;font-weight:600;letter-spacing:-0.05em;"
-        >JAN</span
-      ><span style="font-family:var(--ff-secondary);font-size:40px;"
-        >KOHLBACH</span
-      >
+      <span>JAN</span><span>KOHLBACH</span>
     </h1>
   </div>
-  <PageGeneric page={page} />
 </Layout>
+
+<style lang="scss">
+  h1 {
+    font-size: to-rem(64);
+
+    span {
+      &:nth-child(1) {
+        font-family: var(--ff-primary);
+        font-weight: var(--fw-semibold);
+        letter-spacing: -0.05em;
+      }
+
+      &:nth-child(2) {
+        font-family: var(--ff-secondary);
+        font-weight: var(--fw-regular);
+        font-size: 1.1em;
+      }
+    }
+  }
+</style>
