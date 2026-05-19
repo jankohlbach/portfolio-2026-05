@@ -46,14 +46,15 @@ content:
               collapsible:
                 summary: Link
             fields:
-              - name: title
-                label: Title
-                type: string
-                required: true
               - name: link
                 label: Link
-                type: string
+                type: reference
                 required: true
+                options:
+                  collection: generic
+                  search: 'name,fields.slug,fields.title'
+                  value: '{slug}'
+                  label: '{title} (/{slug})'
 
       - name: footer
         label: Footer
