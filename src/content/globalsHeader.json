@@ -9,5 +9,9 @@
     {
       "link": "contact"
     }
-  ]
+  ],
+  "cta": {
+    "title": "Start a project",
+    "link": "mailto:mail@jankohlbach.com"
+  }
 }
