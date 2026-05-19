@@ -9,6 +9,7 @@ import Cursor from '@components/layouts/Cursor.astro';
 import Header from '@components/layouts/Header.astro';
 import Footer from '@components/layouts/Footer.astro';
 import Splash from '@components/layouts/Splash.astro';
+import PageTransition from '@components/layouts/PageTransition.astro';
 import Canvas from '@components/layouts/Canvas.astro';
 
 const { pageTitle } = Astro.props;
@@ -50,6 +51,18 @@ const shareImage = new URL(siteData.image.src, Astro.url);
     <Font cssVariable="--ff-switzer" preload />
     <Font cssVariable="--ff-signore" preload />
     <script is:inline>
+      window.addEventListener('pagereveal', async (e) => {
+        if (!e.viewTransition) {
+          sessionStorage.removeItem('pt:active');
+          return;
+        }
+        e.viewTransition.finished.then(() => {
+          window.dispatchEvent(new Event('pt:done'));
+          sessionStorage.removeItem('pt:active');
+        });
+      });
+    </script>
+    <script is:inline>
       if (!sessionStorage.getItem('splash:played')) {
         document.documentElement.classList.add('play-splash');
       }
@@ -73,6 +86,8 @@ const shareImage = new URL(siteData.image.src, Astro.url);
     <Footer />
 
     <Splash />
+
+    <PageTransition />
 
     <Canvas />
 

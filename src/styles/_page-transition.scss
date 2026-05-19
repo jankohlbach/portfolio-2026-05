@@ -1,0 +1,43 @@
+::view-transition-image-pair(root) {
+  isolation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  display: block;
+}
+
+::view-transition-old(root) {
+  animation: root-hide-old 0s 1s both;
+}
+
+::view-transition-new(root) {
+  animation: root-show-new 0s 1s both;
+}
+
+@keyframes root-hide-old {
+  to { opacity: 0; }
+}
+
+@keyframes root-show-new {
+  from { opacity: 0; }
+}
+
+::view-transition-old(pt-1) {
+  display: none;
+  animation: none;
+}
+
+::view-transition-new(pt-1) {
+  translate: 100vw;
+  animation: pt-1 2s var(--ease-smooth) both;
+}
+
+@keyframes pt-1 {
+  0%   { scale: 0; }
+  50%  { scale: 1; }
+  60%  { scale: 1; }
+  100% { scale: 0; }
+}
