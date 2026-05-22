@@ -1,12 +1,37 @@
 {
-  "metaLinks": [
+  "linksInternal": [
     {
-      "title": "title",
-      "link": "link"
+      "link": "work"
     },
     {
-      "title": "title",
-      "link": "links"
+      "link": "about"
+    },
+    {
+      "link": "contact"
+    },
+    {
+      "link": "legal"
+    },
+    {
+      "link": "privacy"
+    }
+  ],
+  "linksSocial": [
+    {
+      "title": "LinkedIn",
+      "link": "https://linkedin.com/in/jankohlbach"
+    },
+    {
+      "title": "Instagram",
+      "link": "https://instagram.com/jankohlbach.work"
+    },
+    {
+      "title": "Awwwards",
+      "link": "https://www.awwwards.com/jankohlbach"
+    },
+    {
+      "title": "GitHub",
+      "link": "https://github.com/jankohlbach"
     }
   ]
 }
