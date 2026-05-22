@@ -74,8 +74,25 @@ content:
         path: src/content/globalsFooter.json
         format: json
         fields:
-          - name: metaLinks
-            label: Meta Links
+          - name: linksInternal
+            label: Links Internal
+            type: object
+            list:
+              min: 2
+              collapsible:
+                summary: Link
+            fields:
+              - name: link
+                label: Link
+                type: reference
+                required: true
+                options:
+                  collection: generic
+                  search: 'name,fields.slug,fields.title'
+                  value: '{slug}'
+                  label: '{title} (/{slug})'
+          - name: linksSocial
+            label: Links Social
             type: object
             list:
               min: 2
