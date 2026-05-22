@@ -1,12 +1,38 @@
 ---
 import { getEntries } from 'astro:content';
 
-import { header } from '@content/globals';
+import { header, footer } from '@content/globals';
 
 import Button from '@components/blocks/Button.astro';
+import LinkWithIndicator from '@components/blocks/LinkWithIndicator.astro';
 
-const links = await getEntries(header.links.map((item) => item.link));
+const navLinks = await getEntries(header.links.map((item) => item.link));
+const menuLinks = await getEntries(
+  footer.linksInternal.map((item) => item.link),
+);
 ---
+
+<script>
+  import { scrollStart, scrollStop } from '@scripts/scroll';
+
+  const menu = document.querySelector('[data-js="menu"]');
+  const menuTriggerOpen = document.querySelector(
+    '[data-js="menu-trigger-open"]',
+  );
+  const menuTriggerClose = document.querySelector(
+    '[data-js="menu-trigger-close"]',
+  );
+
+  menuTriggerOpen?.addEventListener('click', () => {
+    scrollStop();
+    menu?.classList.add('is-active');
+  });
+
+  menuTriggerClose?.addEventListener('click', () => {
+    scrollStart();
+    menu?.classList.remove('is-active');
+  });
+</script>
 
 <header>
   <div class="container">
@@ -18,35 +44,16 @@ const links = await getEntries(header.links.map((item) => item.link));
             fill="currentColor"></path>
         </svg>
       </a>
-      <nav>
+      <nav class="nav" aria-label="Primary navigation">
         <ul>
           {
-            links.map((link) => (
+            navLinks.map((link) => (
               <li>
-                <a
-                  class:list={[
-                    'nav-link',
-                    'text-small-caps',
-                    {
-                      'is-active':
-                        link.data.slug === Astro.url.pathname.replace('/', ''),
-                    },
-                  ]}
-                  href={`/${link.data.slug}`}
-                >
-                  {link.data.title}
-                  <svg
-                    class="indicator"
-                    viewBox="0 0 300 300"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M150 0C150 0 150 86 182 118C214 150 300 150 300 150C300 150 214 150 182 182C150 214 150 300 150 300C150 300 150 214 118 182C86 150 0 150 0 150C0 150 86 150 118 118C150 86 150 0 150 0Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </a>
+                <LinkWithIndicator
+                  title={link.data.title}
+                  link={`/${link.data.slug}`}
+                  indicatorPosition="bottom"
+                />
               </li>
             ))
           }
@@ -55,9 +62,40 @@ const links = await getEntries(header.links.map((item) => item.link));
       <div class="cta">
         <Button title={header.cta.title} link={header.cta.link} />
       </div>
+      <button class="menu-trigger" data-js="menu-trigger-open">
+        <Button title="Menu" type="span" />
+      </button>
     </div>
   </div>
 </header>
+<div class="menu" data-js="menu">
+  <div class="menu-inner">
+    <button class="close-button" data-js="menu-trigger-close">
+      <Button title="Close" type="span" />
+    </button>
+    <nav class="menu-nav" aria-label="Primary navigation in menu">
+      <ul>
+        <li>
+          <LinkWithIndicator title="Home" link="/" size="large" />
+        </li>
+        {
+          menuLinks.map((link) => (
+            <li>
+              <LinkWithIndicator
+                title={link.data.title}
+                link={`/${link.data.slug}`}
+                size="large"
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="menu-cta">
+      <Button title={header.cta.title} link={header.cta.link} size="large" />
+    </div>
+  </div>
+</div>
 
 <style lang="scss">
   header {
@@ -77,10 +115,11 @@ const links = await getEntries(header.links.map((item) => item.link));
 
   .logo {
     display: block;
-    width: clamp-fluid(128, 256);
+    width: clamp-fluid(176, 256);
   }
 
-  nav {
+  .nav {
+    display: none;
     margin-inline: auto;
 
     ul {
@@ -90,44 +129,75 @@ const links = await getEntries(header.links.map((item) => item.link));
     }
   }
 
-  .nav-link {
-    position: relative;
+  .cta {
+    display: none;
+    margin-left: auto;
+  }
 
-    @include has-hover {
-      &:hover {
-        .indicator {
-          opacity: 1;
-          scale: 0.8;
-        }
-      }
-    }
+  .menu-trigger {
+    grid-column: 3 / 4;
+    margin-left: auto;
+  }
+
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: var(--zi-menu);
+    padding: var(--grid-margin);
+    backdrop-filter: blur(12px);
+    color: var(--c-dark);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s var(--ease-smooth),
+      visibility 0.3s var(--ease-smooth);
 
     &.is-active {
-      pointer-events: none;
+      opacity: 1;
+      visibility: visible;
+    }
 
-      .indicator {
-        opacity: 1;
-        scale: 1;
+    .menu-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      height: 100%;
+      padding: calc(var(--grid-margin) * 1.5);
+      background-color: var(--c-primary);
+      border-radius: to-rem(12);
+    }
+
+    .close-button {
+      align-self: flex-end;
+    }
+
+    .menu-nav {
+      margin-top: auto;
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
       }
     }
 
-    .indicator {
-      position: absolute;
-      top: calc(100% + to-rem(8));
-      left: 50%;
-      translate: -50% 0;
-      width: to-rem(16);
-      height: to-rem(16);
-      pointer-events: none;
-      opacity: 0;
-      scale: 0.5;
-      transition:
-        opacity 0.4s var(--ease-smooth),
-        scale 0.7s var(--ease-spring);
+    .menu-cta {
+      margin-top: clamp-fluid(64, 128);
     }
   }
 
-  .cta {
-    margin-left: auto;
+  @media (width >= 960px) {
+    .nav {
+      display: block;
+    }
+
+    .cta {
+      display: block;
+    }
+
+    .menu-trigger {
+      display: none;
+    }
   }
 </style>

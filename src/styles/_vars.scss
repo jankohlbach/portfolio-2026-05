@@ -9,7 +9,7 @@
   --fluid-min: 375;
   --fluid-max: 1720;
   --container-max-width: #{to-rem(1920)};
-  --grid-margin: #{to-rem(20)};
+  --grid-margin: #{to-rem(24)};
   --grid-gutter: #{clamp-fluid(10, 20)};
   --grid-max-width: calc(var(--container-max-width) - var(--grid-margin) * 2);
   --grid-columns: 12;
@@ -20,6 +20,7 @@
 
   // font-sizes
   --fs-base: #{clamp-fluid(18, 22)};
+  --fs-large: #{clamp-fluid(20, 26)};
   --fs-1: #{clamp-fluid(54, 72)};
   --fs-2: #{clamp-fluid(44, 60)};
   --fs-3: #{clamp-fluid(38, 50)};
@@ -62,6 +63,7 @@
   --ease-spring: linear(0, .009, .035 2.1%, .141 4.4%, .723 12.9%, .938 16.7%, 1.017, 1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%, 1.051 39.6%, 1.017 43.1%, .991, .977 51%, .974 53.8%, .975 57.1%, .997 69.8%, 1.003 76.9%, 1);
 
   // z-index
-  --zi-cursor: 20000;
+  --zi-menu: 40000;
+  --zi-cursor: 60000;
   --zi-splash: 80000;
 }

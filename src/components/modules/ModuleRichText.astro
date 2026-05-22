@@ -33,7 +33,7 @@ const parsedContent = await marked(fields.content);
     max-width: 60ch;
   }
 
-  @media (min-width: 1280px) {
+  @media (width >= 1280px) {
     .richtext {
       grid-column: 2 / span 10;
     }

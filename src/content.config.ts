@@ -37,7 +37,19 @@ const globalsFooter = defineCollection({
   loader: glob({ base: './src/content', pattern: 'globalsFooter.json' }),
   schema: () =>
     z.object({
-      metaLinks: z
+      ctaText: z.string(),
+      cta: z.object({
+        title: z.string(),
+        link: z.string(),
+      }),
+      linksInternal: z
+        .array(
+          z.object({
+            link: reference('pagesGeneric'),
+          }),
+        )
+        .min(2),
+      linksSocial: z
         .array(
           z.object({
             title: z.string(),
