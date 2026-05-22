@@ -1,4 +1,9 @@
 {
+  "ctaText": "Project in mind?\nLet's create some magic together.",
+  "cta": {
+    "title": "hi@jankohlbach.com",
+    "link": "mail@jankohlbach.com"
+  },
   "linksInternal": [
     {
       "link": "work"
