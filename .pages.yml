@@ -74,7 +74,11 @@ content:
         path: src/content/globalsFooter.json
         format: json
         fields:
-                  - name: cta
+          - name: ctaText
+            label: CTA Text
+            type: text
+            required: true
+          - name: cta
             label: CTA
             type: object
             fields:
